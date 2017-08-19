@@ -1,0 +1,160 @@
+@import "reset";
+//mine library
+@import "functions";
+//bourbon library, http://bourbon.io/docs/
+@import "_bourbon";
+
+.responsive-slider {
+	position: relative;
+	overflow: hidden;
+	background-color: #fff;
+    max-width: 900px;
+    margin: 50px auto;
+	& > .rs-slide {
+		display: block;
+		text-decoration: none;
+		@include position(absolute, 0 0 0 0);
+		@include size(100%);
+		background-repeat: no-repeat;
+		background-position: 50% 50%; 
+		@include background-size(cover);
+		text-indent: -9999px;
+	}
+}
+
+/* Slide effect */
+.rs-effect-slide .rs-slide {
+	opacity: 0;
+	@include transition-property(transform);
+	@include transition-timing-function(ease-out);
+	@include transform(translateX(0%));
+
+}
+.rs-effect-slide .rs-current-slide {
+	opacity: 1;
+	z-index: 1;
+}
+.rs-effect-slide .rs-previous-slide {
+	@include transform(translateX(-100%));
+}
+.rs-effect-slide .rs-next-slide {
+	@include transform(translateX(100%));
+}
+.rs-effect-slide.rs-direction-next .rs-previous-slide,
+.rs-effect-slide.rs-direction-previous .rs-next-slide { opacity: 1; }
+
+/* Fade effect */
+.rs-effect-fade .rs-slide {
+	@include transition-property(opacity);
+	@include transition-timing-function(ease-in);
+	opacity: 0;
+}
+.rs-effect-fade .rs-current-slide {
+	opacity: 1;
+	z-index: 1;
+}
+
+
+
+
+/* Navigation */
+.rs-previous-nav,
+.rs-next-nav,
+.rs-more-nav {
+	position: absolute;
+	top: 50%;
+	@include position(absolute, 50% null null null);
+	z-index: 20;
+	display: block;
+	@include size(60px);
+	text-indent: -9999px;
+	background-repeat: no-repeat;
+	background-color: rgba(0,0,0,0.5);
+	@include border-radius(50px);
+	@include background-size(50%);
+	cursor: pointer;
+	opacity: 0;
+	@include transform(translateY(-50%));		
+	@include transition(all .3s ease-out);
+}
+.rs-more-nav{
+	top: 90%;
+}
+.rs-previous-nav {
+	left: 5%;
+	background-position: 35% 50%;
+	background-image: url("../img/arrow-left.png");
+}
+.rs-next-nav,
+.rs-more-nav {
+	right: 5%;
+	background-position: 65% 50%;
+	background-image: url("../img/arrow-right.png");
+}
+.rs-more-nav{
+	background-image: url("../img/arrow-xxright.png");
+}
+.responsive-slider:hover .rs-previous-nav,
+.responsive-slider:hover .rs-next-nav,
+.responsive-slider:hover .rs-more-nav  { opacity: 0.5; }
+.responsive-slider:hover .rs-previous-nav:hover,
+.responsive-slider:hover .rs-next-nav:hover,
+.responsive-slider:hover .rs-more-nav:hover { opacity: 1.0; }
+
+/* Bullet Navigation */
+.rs-bullet-nav {
+	@include position(absolute, null 5% 5% null);
+	z-index: 15;
+	@include size(90% auto);
+	text-align: right;
+	opacity: 0.4;
+	@include transition(all .3s ease-out);
+}
+.rs-has-captions .rs-bullet-nav { max-width: 42%; }
+.rs-bullet-nav a {
+	display: inline-block;
+	@include size(10px);
+	background: transparent;
+	text-indent: 9999px;
+	margin: 0 5px;
+	border: 3px solid rgba(0,0,0,0.5);
+	@include border-radius(10px);
+	cursor: pointer;
+	@include transition(all .3s ease-out);
+}
+.rs-bullet-nav a.rs-bullet-active,
+.rs-bullet-nav a:hover { background: #fff; }
+.responsive-slider:hover .rs-bullet-nav { opacity: 0.7; }
+.responsive-slider:hover .rs-bullet-nav:hover { opacity: 1.0; }
+
+/* Captions */
+.rs-has-captions .rs-slide { text-indent: 0; }
+.rs-caption {
+	@include position(absolute, null null 5% 5%);
+	max-width: 90%;
+	z-index: 10;
+	background: #000;
+	background: rgba(0,0,0,0.5);
+	padding: 5px 15px;
+	@include border-radius(10px);
+	font: 14px/1.6em Arial, sans-serif;
+	color: #fff;
+	@include box-sizing(border-box);
+}
+.rs-has-bullet-nav .rs-caption { max-width: 42%; }
+.rs-caption .rs-caption-title { font-weight: bold; }
+.rs-caption .rs-caption-content {
+	font-size: 13px;
+	line-height: 1.6em;
+	color: #eee;
+}
+.rs-caption .rs-caption-content a,
+.rs-caption .rs-caption-content a:visited {
+	color: #eee;
+	text-decoration: underline;
+	border: 0;
+}
+.rs-caption .rs-caption-content a:hover,
+.rs-caption .rs-caption-content a:active {
+	color: #fff;
+}

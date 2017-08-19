@@ -1,0 +1,65 @@
+// Mixins
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+@mixin box-shadow($top, $left, $blur, $color, $inset: false) {
+  @if $inset {
+    -webkit-box-shadow:inset $top $left $blur $color;
+    -moz-box-shadow:inset $top $left $blur $color;
+    box-shadow:inset $top $left $blur $color;
+  } @else {
+    -webkit-box-shadow: $top $left $blur $color;
+    -moz-box-shadow: $top $left $blur $color;
+    box-shadow: $top $left $blur $color;
+  }
+}
+@mixin user-select($value-user) {
+  -webkit-user-select: $value-user;
+     -moz-user-select: $value-user;
+      -ms-user-select: $value-user;
+          user-select: $value-user;
+}
+@mixin appearance($value-appearance) {
+  -webkit-appearance: $value-appearance;
+     -moz-appearance: $value-appearance;
+}
+// generic transform
+@mixin transform($transforms) {
+  -webkit-transform: $transforms;
+     -moz-transform: $transforms;
+      -ms-transform: $transforms;
+       -o-transform: $transforms;
+          transform: $transforms;
+}
+// rotate
+@mixin rotate ($deg) {
+  @include transform(rotate(#{$deg}deg));
+}
+// scale
+@mixin scale($scale) {
+   @include transform(scale($scale));
+} 
+// translate
+@mixin translate ($transformX1, $transformX2) {
+   @include transform(translate($transformX1, $transformX2));
+}
+// skew
+@mixin skew ($skew1, $skew2) {
+   @include transform(skew(#{$skew1}deg, #{$skew2}deg));
+}
+//transform origin
+@mixin transform-origin ($origin) {
+  -webkit-transform-origin: $origin;
+     -moz-transform-origin: $origin;
+      -ms-transform-origin: $origin;
+       -o-transform-origin: $origin;
+          transform-origin: $origin;
+}
+@mixin gradient($from, $to) {
+  background: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
+  background: -moz-linear-gradient(top,  $from, $to);
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$from}', endColorstr='#{$to}');
+}
